@@ -35,6 +35,12 @@ namespace CodeChallenge.Controllers
         [HttpGet("{id}", Name = "getReportingStructureById")]
         public IActionResult GetReportingStructureById(String id)
         {
+            if (id == null)
+            {
+                _logger.LogDebug($"Input employee ID was null, returning 400 Bad Request");
+                return BadRequest("Input employee ID cannot be null");
+            }
+
             _logger.LogDebug($"Received reporting structure GET request for {id}");
 
             ReportingStructure rs = _reportingStructureService.GetReportingStructure(id);
