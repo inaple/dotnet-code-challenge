@@ -18,6 +18,11 @@ namespace CodeChallenge.Repositories
         {
             _employeeContext = employeeContext;
             _logger = logger;
+
+            // I encountered a bug where non-native data types stored in the database would always return as null.
+            // I found from debugging that triggering IEnumerable would fix this issue so this call triggers IEnumerable without having any effect.
+            // This was happening without any code changes to the starting code so I'm not sure if it's an issue with my environment or the code itself.
+            _ = _employeeContext.Employees.ToList();
         }
 
         public Employee Add(Employee employee)
